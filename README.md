@@ -8,5 +8,5 @@ A Java application that creates a Role Playing Game with scavenger and treasure 
 # TimeLine
 
 ## Week 1
--Create UML
--Create CRC Cards
+1. Create UML
+2. Create CRC Cards
