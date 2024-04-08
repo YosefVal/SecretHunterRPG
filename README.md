@@ -3,7 +3,7 @@
 ## Description
 A Java application that creates a 2D action Role Playing Game with scavenger and treasure hunt elements that will allow players to either progress through a story or explore in search of secrets.
 
-## Features/Requirements
+## Features/Requirements (More may be added in the future)
 1. Allows player to interact with world enviroment.
 2. Allows player to interact with NPCs.
 3. Allows player to interact with enemy entities through turn based combat.
