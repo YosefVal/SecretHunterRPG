@@ -20,6 +20,7 @@ public class GamePanel extends JPanel implements Runnable{
 	final int screenHeight = tileSize * maxScreenRow;
 	int FPS = 60;
 	double drawInterval = 1000000000/FPS;
+	Color BGColor = Color.BLACK;
 	
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
@@ -27,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public GamePanel() {
 		this.setPreferredSize(new Dimension (screenWidth, screenHeight));
-		this.setBackground(Color.black);
+		this.setBackground(BGColor);
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);

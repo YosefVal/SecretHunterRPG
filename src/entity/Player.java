@@ -9,7 +9,7 @@ import main.KeyHandler;
 public class Player extends Entity{
 	GamePanel gp;
 	KeyHandler keyH;
-
+	maxHP = 10;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
@@ -21,6 +21,7 @@ public class Player extends Entity{
 		x = 100;
 		y = 100;
 		speed = 4;
+		HP = maxHP;
 	}
 	
 	public void update() {
@@ -42,5 +43,16 @@ public class Player extends Entity{
 		g2.setColor(Color.red);
 		
 		g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+	}
+	
+	public void lowerHP() {
+		HP -= 1;
+	}
+	
+	public void heal() {
+		HP += 1;
+		if (HP > maxHP) {
+			HP = maxHP;
+		}
 	}
 }
