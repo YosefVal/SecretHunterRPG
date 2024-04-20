@@ -9,40 +9,44 @@ import main.KeyHandler;
 public class Player extends Entity{
 	GamePanel gp;
 	KeyHandler keyH;
-	maxHP = 10;
+	int maxHP = 10;
+	public final int screenX;
+	public final int screenY;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
 		this.keyH = keyH;
 		setDefaultValues();
+		screenX = gp.screenWidth/2 - (gp.tileSize/2);
+		screenY = gp.screenHeight/2 - (gp.tileSize/2);
 	}
 	
 	public void setDefaultValues() {
-		x = 100;
-		y = 100;
+		worldX= gp.tileSize * 23;
+		worldY= gp.tileSize * 21;
 		speed = 4;
 		HP = maxHP;
 	}
 	
 	public void update() {
 		if (keyH.upPressed == true) {
-			y -= speed;
+			worldY-= speed;
 		}
 		if (keyH.downPressed == true) {
-			y += speed;
+			worldY+= speed;
 		}
 		if (keyH.leftPressed == true) {
-			x -= speed;
+			worldX-= speed;
 		}
 		if (keyH.rightPressed == true) {
-			x += speed;
+			worldX+= speed;
 		}
 	}
 	
 	public void draw(Graphics2D g2) {
 		g2.setColor(Color.red);
 		
-		g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+		g2.fillRect(screenX, screenY, gp.tileSize, gp.tileSize);
 	}
 	
 	public void lowerHP() {
