@@ -17,3 +17,5 @@ A Java application that creates a 2D action Role Playing Game with scavenger and
 ![Screenshot 2024-04-07 184855](https://github.com/YosefVal/SecretHunterRPG/assets/164386596/07b06801-0102-421e-a0e0-a0e3de475bb7)
 
 # GUI Layout
+![Screenshot 2024-04-21 224458](https://github.com/YosefVal/SecretHunterRPG/assets/164386596/ce44c0fd-baf1-42ad-8faa-7ee6d6e9cbbd)
+![Screenshot 2024-04-21 230247](https://github.com/YosefVal/SecretHunterRPG/assets/164386596/d3fe491f-cae1-4aa1-882d-211e955bbf20)
