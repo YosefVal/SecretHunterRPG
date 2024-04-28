@@ -13,8 +13,8 @@ import main.GamePanel;
 public class TileManager {
 
 	GamePanel gp;
-	Tile[] tile;
-	int mapTileNum[][];
+	public Tile[] tile;
+	public int mapTileNum[][];
 	
 	public TileManager (GamePanel gp) {
 		this.gp = gp;
@@ -27,13 +27,25 @@ public class TileManager {
 	public void getTileImage() {
 		try {
 			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass_tile.png"));
+			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Grass.png"));
 			
 			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"));
+			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Dirt.png"));
 			
 			tile[2] = new Tile();
-			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"));
+			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Water.png"));
+			tile[2].collision = true;
+			
+			tile[3] = new Tile();
+			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/CastleWall.png"));
+			tile[3].collision = true;
+			
+			tile[4] = new Tile();
+			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Tree.png"));
+			tile[4].collision = true;
+			
+			tile[5] = new Tile();
+			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Tree.png"));
 			
 		}catch(IOException e) {
 			e.printStackTrace();

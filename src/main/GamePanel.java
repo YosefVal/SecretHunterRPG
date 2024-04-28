@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.JPanel;
@@ -27,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int worldHeight = tileSize * maxWorldRow;
 	
 	//FPS
-	int FPS = 60;
+	int FPS = 30;
 	
 	double drawInterval = 1000000000/FPS;
 	
@@ -38,14 +39,23 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
-	Player player = new Player(this,keyH);
 	
+	//Entity
+	public CollisionChecker cChecker = new CollisionChecker(this);
+	public AssetSetter aSetter = new AssetSetter(this);
+	public Player player = new Player(this,keyH);
+	public SuperObject obj[] = new SuperObject[10];
+
 	public GamePanel() {
 		this.setPreferredSize(new Dimension (screenWidth, screenHeight));
 		this.setBackground(BGColor);
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);	
+	}
+	
+	public void setupGame() {
+		aSetter.setObject();
 	}
 	
 	public void startGameThread(){
@@ -59,27 +69,22 @@ public class GamePanel extends JPanel implements Runnable{
 		double nextDrawTime = System.nanoTime() + drawInterval;
 		
 		while (gameThread != null) {
-			
-			update();
-
-			repaint();
-			
-			try {
-				double remainingTime = nextDrawTime - System.nanoTime();
-				remainingTime = remainingTime / 1000000;
-				
-				if (remainingTime < 0) {
-					remainingTime = 0;
+			double nextDrawTime = System.nanoTime() + drawInterval;
+			while (gameThread != null) {
+				update();
+				repaint();
+				try {
+					double remainingTime = nextDrawTime - System.nanoTime();
+					remainingTime = remainingTime / 1000000;
+					if (remainingTime < 0) {
+						remainingTime = 0;
+					}
+					Thread.sleep((long) remainingTime);
+					nextDrawTime += drawInterval;
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
-				
-				Thread.sleep((long) remainingTime);
-				
-				nextDrawTime += drawInterval;
-				
-			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
-		}
 	}
 	
 	public void update() {
@@ -91,9 +96,18 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		Graphics2D g2 = (Graphics2D)g;
 		
+		//Tile
 		tileM.draw(g2); //first layer
 		
-		player.draw(g2); //second layer
+		//Object
+		for (int i = 0; i < obj.length; i++) { //second layer
+			if (obj[i] != null) {
+				obj[i].draw(g2, this);
+			}
+		}
+		
+		//Player
+		player.draw(g2); //third layer
 		
 		g2.dispose();
 	}
