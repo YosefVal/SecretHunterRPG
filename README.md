@@ -6,7 +6,7 @@ A Java application that creates a 2D action Role Playing Game with scavenger and
 ## Features/Requirements (More may be added in the future)
 1. Allows player to interact with world enviroment.
 2. Allows player to interact with NPCs.
-3. Allows player to interact with enemy entities through turn based combat.
+3. Allows player to interact with enemy entities through overworld combat.
 4. Allows player to level up and manually increase their stats.
 5. Allows Player to add/delete things to/from their inventory.
 6. Allows Player to change their equipment.
