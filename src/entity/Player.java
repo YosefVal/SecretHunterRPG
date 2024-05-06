@@ -10,13 +10,14 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 public class Player extends Entity{
 	GamePanel gp;
 	KeyHandler keyH;
-	int maxHP = 10;
 	public final int screenX;
 	public final int screenY;
+	int hasMainKey = 0;
 	int hasKey = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -38,43 +39,51 @@ public class Player extends Entity{
 	public void setDefaultValues() {
 		worldX= gp.tileSize * 23;
 		worldY= gp.tileSize * 21;
-		speed = 4;
-		HP = maxHP;
+		direction = "right";
+		speed = 8;
+		
+		//Player status
+		maxLife = 10;
+		life = maxLife;
 	}
 	
 	public void getPlayerImage() {
-		try {
 			//up
-			upIdle = ImageIO.read(getClass().getResource("/player/Player_Dwarf/U.Idle.png"));
-			up1 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/U.Walk1.png"));
-			up2 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/U.walk2.png"));
-			up3 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/U.walk3.png"));
-			up4 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/U.walk4.png"));
+			up1 = setup("U.Walk1");
+			up2 = setup("U.walk2");
+			up3 = setup("U.walk3");
+			up4 = setup("U.walk4");
 		
 			//down
-			downIdle = ImageIO.read(getClass().getResource("/player/Player_Dwarf/D.Idle.png"));
-			down1 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/D.walk1.png"));
-			down2 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/D.walk2.png"));
-			down3 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/D.walk3.png"));
-			down4 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/D.walk4.png"));
+			down1 = setup("D.walk1");
+			down2 = setup("D.walk2");
+			down3 = setup("D.walk3");
+			down4 = setup("D.walk4");
 			
 			//right
-			rightIdle = ImageIO.read(getClass().getResource("/player/Player_Dwarf/Idle.png"));
-			right1 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/Walk1.png"));
-			right2 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/Walk2.png"));
-			right3 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/Walk3.png"));
-			right4 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/Walk4.png"));
+			right1 = setup("Walk1");
+			right2 = setup("Walk2");
+			right3 = setup("Walk3");
+			right4 = setup("Walk4");
 			
 			//left
-			leftIdle = ImageIO.read(getClass().getResource("/player/Player_Dwarf/L.Idle.png"));
-			left1 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/L.Walk1.png"));
-			left2 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/L.walk2.png"));
-			left3 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/L.walk3.png"));
-			left4 = ImageIO.read(getClass().getResource("/player/Player_Dwarf/L.walk4.png"));
-			
-		}catch(IOException e) {
+			left1 = setup("L.Walk1");
+			left2 = setup("L.walk2");
+			left3 = setup("L.walk3");
+			left4 = setup("L.walk4");
+	}
+	
+	public BufferedImage setup(String imageName) {
+		UtilityTool uTool = new UtilityTool();
+		BufferedImage image = null;
+		
+		try {
+			image = ImageIO.read(getClass().getResourceAsStream("/player/Player_Dwarf/" + imageName + ".png"));
+			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return image;
 	}
 	
 	public void update() {
@@ -177,17 +186,17 @@ public class Player extends Entity{
 			if (spriteNum == 4) {image = left4;}
 			break;
 		}
-		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(image, screenX, screenY, null);
 	}
 	
 	public void lowerHP() {
-		HP -= 1;
+		life -= 1;
 	}
 	
 	public void heal() {
-		HP += 1;
-		if (HP > maxHP) {
-			HP = maxHP;
+		life += 1;
+		if (life > maxLife) {
+			life = maxLife;
 		}
 	}
 }

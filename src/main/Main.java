@@ -13,7 +13,7 @@ public class Main {
 
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(true);
+		window.setResizable(false);
 		window.setTitle(title);
 		
 		GamePanel gamePanel = new GamePanel();
@@ -25,6 +25,5 @@ public class Main {
 		
 		gamePanel.setupGame();
 		gamePanel.startGameThread();
-		
 	}
 }

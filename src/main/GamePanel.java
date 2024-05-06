@@ -37,14 +37,22 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	TileManager tileM = new TileManager(this);
 	
-	KeyHandler keyH = new KeyHandler();
+	KeyHandler keyH = new KeyHandler(this);
 	Thread gameThread;
 	
 	//Entity
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
+	public UI ui = new UI(this);
 	public Player player = new Player(this,keyH);
 	public SuperObject obj[] = new SuperObject[10];
+	
+	//Gamestate
+	public int gameState;
+	public final int titleState = 0;
+	public final int playState = 1;
+	public final int pauseState = 2;
+	public final int dialogueState = 3;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension (screenWidth, screenHeight));
@@ -56,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void setupGame() {
 		aSetter.setObject();
+		gameState = titleState;
 	}
 	
 	public void startGameThread(){
@@ -65,26 +74,22 @@ public class GamePanel extends JPanel implements Runnable{
 
 	@Override
 	public void run() {
-
 		double nextDrawTime = System.nanoTime() + drawInterval;
-		
 		while (gameThread != null) {
-			double nextDrawTime = System.nanoTime() + drawInterval;
-			while (gameThread != null) {
-				update();
-				repaint();
-				try {
-					double remainingTime = nextDrawTime - System.nanoTime();
-					remainingTime = remainingTime / 1000000;
-					if (remainingTime < 0) {
-						remainingTime = 0;
-					}
-					Thread.sleep((long) remainingTime);
-					nextDrawTime += drawInterval;
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+			update();
+			repaint();
+			try {
+				double remainingTime = nextDrawTime - System.nanoTime();
+				remainingTime = remainingTime / 1000000;
+				if (remainingTime < 0) {
+					remainingTime = 0;
 				}
+				Thread.sleep((long) remainingTime);
+				nextDrawTime += drawInterval;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
+		}
 	}
 	
 	public void update() {
@@ -96,19 +101,25 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		Graphics2D g2 = (Graphics2D)g;
 		
-		//Tile
-		tileM.draw(g2); //first layer
-		
-		//Object
-		for (int i = 0; i < obj.length; i++) { //second layer
-			if (obj[i] != null) {
-				obj[i].draw(g2, this);
-			}
+		//TitleScreen 
+		if (gameState == titleState) {
+			ui.draw(g2);
 		}
-		
-		//Player
-		player.draw(g2); //third layer
-		
+		else {
+			//Tile
+			tileM.draw(g2); //first layer
+			
+			//Object
+			for (int i = 0; i < obj.length; i++) { //second layer
+				if (obj[i] != null) {
+					obj[i].draw(g2, this);
+				}
+			}
+			
+			//Player
+			player.draw(g2); //third layer
+			
+		}
 		g2.dispose();
 	}
 	
