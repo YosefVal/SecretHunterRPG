@@ -4,7 +4,7 @@
 A Java application that creates a 2D action Role Playing Game with scavenger and treasure hunt elements that will allow players to either progress through a story or explore in search of secrets.
 
 # Table of contents
-[Description](https://github.com/YosefVal/SecretHunterRPG/tree/main(#Description))
+[https://github.com/YosefVal/SecretHunterRPG/tree/main](#Description)
 
 [https://github.com/YosefVal/SecretHunterRPG/tree/main](#Features-and-Requirements)
 
