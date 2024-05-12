@@ -4,7 +4,7 @@
 
 [https://github.com/YosefVal/SecretHunterRPG/tree/main](#Requirements)
 
-[https://github.com/YosefVal/SecretHunterRPG/tree/main](#CRC-Card-and-Class-Diagram)
+[https://github.com/YosefVal/SecretHunterRPG/tree/main](#CRC-Cards-and-Class-Diagram)
 
 ## Description
 A Java application that creates a 2D action Role Playing Game with scavenger and treasure hunt elements that will allow players to either progress through a story or explore in search of secrets.
