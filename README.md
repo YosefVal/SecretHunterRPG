@@ -1,5 +1,6 @@
 # SecretHunterRPG
 
+
 # Table of contents
 [https://github.com/YosefVal/SecretHunterRPG/tree/main](#Description)
 
