@@ -6,7 +6,7 @@ A Java application that creates a 2D action Role Playing Game with scavenger and
 # Table of contents
 [Description](https://github.com/YosefVal/SecretHunterRPG/blob/main/README.md#Description)
 
-[https://github.com/YosefVal/SecretHunterRPG/tree/main](#Features-and-Requirements)
+[Features and Requirements](https://github.com/YosefVal/SecretHunterRPG/blob/main/README.md#Features-and-Requirements)
 
 [https://github.com/YosefVal/SecretHunterRPG/tree/main](#CRC-Cards-and-Class-Diagram)
 
