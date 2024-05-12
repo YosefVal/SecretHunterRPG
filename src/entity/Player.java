@@ -16,6 +16,7 @@ public class Player extends Entity{
 	public final int screenY;
 	int hasMainKey = 0;
 	int hasKey = 0;
+	int standCounter = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
@@ -45,42 +46,29 @@ public class Player extends Entity{
 	}
 	
 	public void getPlayerImage() {
-			//up
-			up1 = setup("U.Walk1");
-			up2 = setup("U.walk2");
-			up3 = setup("U.walk3");
-			up4 = setup("U.walk4");
+		//up
+		up1 = setup("/player/Player_Dwarf/U.Walk1");
+		up2 = setup("/player/Player_Dwarf/U.walk2");
+		up3 = setup("/player/Player_Dwarf/U.walk3");
+		up4 = setup("/player/Player_Dwarf/U.walk4");
 		
-			//down
-			down1 = setup("D.walk1");
-			down2 = setup("D.walk2");
-			down3 = setup("D.walk3");
-			down4 = setup("D.walk4");
+		//down
+		down1 = setup("/player/Player_Dwarf/D.walk1");
+		down2 = setup("/player/Player_Dwarf/D.walk2");
+		down3 = setup("/player/Player_Dwarf/D.walk3");
+		down4 = setup("/player/Player_Dwarf/D.walk4");
 			
-			//right
-			right1 = setup("Walk1");
-			right2 = setup("Walk2");
-			right3 = setup("Walk3");
-			right4 = setup("Walk4");
+		//right
+		right1 = setup("/player/Player_Dwarf/Walk1");
+		right2 = setup("/player/Player_Dwarf/Walk2");
+		right3 = setup("/player/Player_Dwarf/Walk3");
+		right4 = setup("/player/Player_Dwarf/Walk4");
 			
-			//left
-			left1 = setup("L.Walk1");
-			left2 = setup("L.walk2");
-			left3 = setup("L.walk3");
-			left4 = setup("L.walk4");
-	}
-	
-	public BufferedImage setup(String imageName) {
-		UtilityTool uTool = new UtilityTool();
-		BufferedImage image = null;
-		
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/player/Player_Dwarf/" + imageName + ".png"));
-			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return image;
+		//left
+		left1 = setup("/player/Player_Dwarf/L.Walk1");
+		left2 = setup("/player/Player_Dwarf/L.walk2");
+		left3 = setup("/player/Player_Dwarf/L.walk3");
+		left4 = setup("/player/Player_Dwarf/L.walk4");
 	}
 	
 	public void update() {
@@ -104,6 +92,9 @@ public class Player extends Entity{
 			
 			int objIndex = gp.cChecker.checkObject(this, true);
 			pickUpObject(objIndex);
+			
+			int ncpIndex = gp.cChecker.checkEntity(this, gp.npc);
+			interactNPC(ncpIndex);
 			
 			if (collisionOn == false) {
 				switch(direction) {
@@ -131,6 +122,10 @@ public class Player extends Entity{
 				spriteCounter = 0;
 			}
 		}
+	}
+	
+	private void interactNPC(int ncpIndex) {
+		
 	}
 	
 	public void pickUpObject(int i) {

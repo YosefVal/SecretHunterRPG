@@ -25,7 +25,7 @@ public class TileManager {
 		loadMap();
 	}
 	
-	public void getTileImage() {
+	public void getTileImage() { //Gets tile image and seys collision if needed
 		setup(0, "Grass", false);
 		setup(1, "Dirt", false);
 		setup(2, "Water", true);

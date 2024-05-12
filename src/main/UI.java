@@ -99,7 +99,7 @@ public class UI {
 	}
 	
 	public void drawTitleScreen() {
-		g2.setColor(new Color(0, 0, 0));
+		g2.setColor(new Color(5, 102, 8));
 		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 		
 		//Title name
@@ -109,7 +109,7 @@ public class UI {
 		int y = gp.tileSize*3;
 		
 		//Shadow
-		g2.setColor(Color.gray);
+		g2.setColor(Color.BLACK);
 		g2.drawString(text, x+5, y+5);
 		
 		//Main color
@@ -122,6 +122,7 @@ public class UI {
 		g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
 		
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48f));
+		
 		//Menu
 		text = "NEW GAME";
 		x = getXforCenteredText(text);
@@ -145,8 +146,7 @@ public class UI {
 		g2.drawString(text, x, y);
 		if (commandNum == 2) {
 			g2.drawString(">", x-gp.tileSize, y);
-		}
-		
+		}	
 	}
 	
 	public void drawPauseScreen() {
@@ -178,8 +178,7 @@ public class UI {
 		c = new Color (255,255,255);
 		g2.setColor(c);
 		g2.setStroke(new BasicStroke(5));
-		g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
-		
+		g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);	
 	}
 
 	public int getXforCenteredText(String text) {
