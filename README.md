@@ -1,18 +1,18 @@
 # SecretHunterRPG
 
-## Description
-A Java application that creates a 2D action Role Playing Game with scavenger and treasure hunt elements that will allow players to either progress through a story or explore in search of secrets.
-
-# Table of contents
+## Table of contents
 [Description](https://github.com/YosefVal/SecretHunterRPG/blob/main/README.md#Description)
 
 [Features and Requirements](https://github.com/YosefVal/SecretHunterRPG/blob/main/README.md#Features-and-Requirements)
 
-[https://github.com/YosefVal/SecretHunterRPG/tree/main](#CRC-Cards-and-Class-Diagram)
+[CRC Cards and Class Diagram](https://github.com/YosefVal/SecretHunterRPG/blob/main/README.md#CRC-Cards-and-Class-Diagram)
 
-[https://github.com/YosefVal/SecretHunterRPG/tree/main](#GUI-Layout)
+[GUI Layout](https://github.com/YosefVal/SecretHunterRPG/blob/main/README.md#GUI-Layout)
 
-[https://github.com/YosefVal/SecretHunterRPG/tree/main](#Requirements-Traceability-Matrix)
+[Requirements Traceability Matrix](https://github.com/YosefVal/SecretHunterRPG/blob/main/README.md#Requirements-Traceability-Matrix)
+
+## Description
+A Java application that creates a 2D action Role Playing Game with scavenger and treasure hunt elements that will allow players to either progress through a story or explore in search of secrets.
 
 ## Features and Requirements
 1. Allows player to interact with world enviroment.
