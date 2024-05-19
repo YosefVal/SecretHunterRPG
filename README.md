@@ -1,4 +1,4 @@
-# SecretHunterRPG 
+# SecretHunterRPG
 
 ## Table of contents
 [Description](https://github.com/YosefVal/SecretHunterRPG/blob/main/README.md#Description)
