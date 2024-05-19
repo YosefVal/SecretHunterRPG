@@ -13,13 +13,13 @@ class AssetSetterTest {
 
 	@Test
 	void setObjectTest() {
-		gp.obj[0] = new OBJ_Key();
+		gp.obj[0] = new OBJ_Key(gp);
 		gp.obj[0].worldX = 24 * gp.tileSize; //sets key on tile 25 of X axis
 		gp.obj[0].worldY = 7 * gp.tileSize; //sets key on tile 8 of Y axis
 		assertEquals(1536, gp.obj[0].worldX);
 		assertEquals(448, gp.obj[0].worldY);
 		
-		gp.obj[1] = new OBJ_Door();
+		gp.obj[1] = new OBJ_Door(gp);
 		gp.obj[1].worldX = 29 * gp.tileSize; //sets key on tile 30 of X axis
 		gp.obj[1].worldY = 10 * gp.tileSize; //sets key on tile 11 of Y axis
 		assertEquals(1856, gp.obj[1].worldX);

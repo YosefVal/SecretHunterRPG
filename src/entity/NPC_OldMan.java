@@ -6,14 +6,20 @@ import main.GamePanel;
 
 public class NPC_OldMan extends Entity{
 
+	/**
+	 * Purpose: Gets entity constructor and sets direction, images, and speed
+	 * @param gp
+	 */
 	public NPC_OldMan(GamePanel gp) {
 		super(gp);
-		
 		direction = "down";
 		speed = 1;
 		getImage();
 	}
 	
+	/**
+	 * Purpose: Gets images for NPC
+	 */
 	public void getImage() {
 		up1 = setup("/NPC/oldman_up_1");
 		up2 = setup("/NPC/oldman_up_2");
@@ -25,6 +31,9 @@ public class NPC_OldMan extends Entity{
 		right2 = setup("/NPC/oldman_right_2");
 	}
 	
+	/**
+	 * Purpose: Moves NPC in random direction
+	 */
 	public void setAction() {
 		actionLockCounter++;
 		
@@ -46,7 +55,5 @@ public class NPC_OldMan extends Entity{
 			}
 			actionLockCounter = 0;
 		}
-		
-		
 	}
 }

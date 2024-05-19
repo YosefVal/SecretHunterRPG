@@ -7,10 +7,13 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 
 public class OBJ_Heart extends SuperObject{
-	
 	GamePanel gp;
+	
+	/**
+	 * Purpose: Gets heart Images and scales them
+	 * @param gp
+	 */
 	public OBJ_Heart(GamePanel gp) {
-		
 		name = "Heart";
 		try{
 			image = ImageIO.read(getClass().getResourceAsStream("/objects/heart_full.png"));
@@ -21,7 +24,7 @@ public class OBJ_Heart extends SuperObject{
 			image3 = uTool.scaleImage(image3, gp.tileSize, gp.tileSize);
 			
 		} catch(IOException e) {
-			e.printStackTrace();
+			System.out.println("Error: Missing image/Scaling gone wrong (OBJ_Heart line 29)");
 		}
 	}
 }

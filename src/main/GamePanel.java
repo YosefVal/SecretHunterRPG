@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
 	KeyHandler keyH = new KeyHandler(this);
 	Thread gameThread;
 	
-	//Entity
+	//Entity and objects
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
 	public UI ui = new UI(this);
@@ -55,8 +55,10 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int titleState = 0;
 	public final int playState = 1;
 	public final int pauseState = 2;
-	public final int dialogueState = 3;
 
+	/**
+	 * Puspose: Sets up Screen 
+	 */
 	public GamePanel() {
 		this.setPreferredSize(new Dimension (screenWidth, screenHeight));
 		this.setBackground(BGColor);
@@ -65,17 +67,26 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);	
 	}
 	
+	/**
+	 * Purpose; sets up obkects, NPCs, and gamestate
+	 */
 	public void setupGame() {
 		aSetter.setObject();
 		aSetter.setNPC();
 		gameState = titleState;
 	}
 	
+	/**
+	 * Purpose: sets up game Thread
+	 */
 	public void startGameThread(){
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
 
+	/**
+	 * Purpose: Update the game by FPS (Frames per second)
+	 */
 	@Override
 	public void run() {
 		double nextDrawTime = System.nanoTime() + drawInterval;
@@ -91,11 +102,14 @@ public class GamePanel extends JPanel implements Runnable{
 				Thread.sleep((long) remainingTime);
 				nextDrawTime += drawInterval;
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				System.out.println("Error: Run interrupted (GamePanel line 105)");
 			}
 		}
 	}
 	
+	/**
+	 * Purpose: Updates player and NPCs if game is not paused
+	 */
 	public void update() {
 		if(gameState == playState) {
 			player.update();
@@ -105,44 +119,40 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 			}
 		}
-		if (gameState == pauseState) {
-			
-		}
+		if (gameState == pauseState) {} //Doesn't update anything if paused
 	}
 	
+	/**
+	 * Purpose: Paints all of the game componenets
+	 */
 	public void paintComponent(Graphics g) {
-super.paintComponent(g);
-		
+		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		
 		//TitleScreen 
-		if (gameState == titleState) {
+		if (gameState == titleState) { //Paints title Screen
 			ui.draw(g2);
 		}
-		else {
+		else { // If game not in title screen
 			//Tile
 			tileM.draw(g2); //first layer
 			
+			//Player
+			player.draw(g2);
+			
 			//Object
-			for (int i = 0; i < obj.length; i++) { 
+			for (int i = 0; i < obj.length; i++) {
 				if (obj[i] != null) {
 					obj[i].draw(g2, this);
 				}
 			}
-			
 			for (int i = 0; i < npc.length; i++) {
 				if (npc[i] != null) {
 					npc[i].draw(g2);
 				}
 			}
-			
-			//Player
-			player.draw(g2); 
-			
 			ui.draw(g2);
-			
 		}
-		g2.dispose();
-	}
-	
+		g2.dispose();	
+	}	
 }

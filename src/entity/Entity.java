@@ -14,31 +14,44 @@ public class Entity {
 	GamePanel gp;
 	public int worldX, worldY;
 	public int speed;
+	
+	//Player and NPC sprite Direction
 	public BufferedImage rightIdle, right1, right2, right3, right4;
 	public BufferedImage upIdle, up1, up2, up3, up4;
 	public BufferedImage downIdle, down1, down2, down3, down4;
 	public BufferedImage leftIdle, left1, left2, left3, left4;
-	
 	public String direction;
 	
+	//Player Sprite and collision
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
-	public Rectangle solidArea;
+	public Rectangle solidArea = new Rectangle (0,0,48,48);
 	public int solidAreaDefaultX, solidAreaDefaultY;
 	public boolean collisionOn = false;
-	public int actionLockCounter = 0;
-	String dialogues[] = new String[20];
-	int dialogueIndex = 0;
 	
-	//Character status
+	//NPC 
+	public int actionLockCounter = 0;
+	
+	//player status
 	public int maxLife;
 	public int life;
 	
+	/**
+	 * Purpose: Gets gamePanel
+	 * @param gp
+	 */
 	public Entity(GamePanel gp) {
 		this.gp = gp;
 	}
 	
+	/**
+	 * Purpose: Method to be overriden by different NPCs
+	 */
 	public void setAction() {};
+	
+	/**
+	 * Purpose: Updates entity
+	 */
 	public void update() {
 		setAction();
 		if (collisionOn == false) {
@@ -56,12 +69,6 @@ public class Entity {
 				spriteNum = 2;
 			}
 			else if (spriteNum == 2) {
-				spriteNum = 3;
-			}
-			else if (spriteNum == 3) {
-				spriteNum = 4;
-			}
-			else if (spriteNum == 4) {
 				spriteNum = 1;
 			}
 			spriteCounter = 0;
@@ -72,6 +79,11 @@ public class Entity {
 		gp.cChecker.checkPlayer(this);
 	}
 	
+	/**
+	 * Purpose: Gets image and scales it
+	 * @param imageName
+	 * @return image
+	 */
 	public BufferedImage setup(String imageName) {
 		UtilityTool uTool = new UtilityTool();
 		BufferedImage image = null;
@@ -80,11 +92,15 @@ public class Entity {
 			image = ImageIO.read(getClass().getResourceAsStream(imageName + ".png"));
 			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Error: Missing image/Scaling gone wrong (Entity line 95)");
 		}
 		return image;
 	}
 
+	/**
+	 * Purpose: draws the entity's image
+	 * @param g2
+	 */
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
 		
@@ -117,8 +133,7 @@ public class Entity {
 				break;
 			}
 			g2.drawImage(image, screenX, screenY, null);
-		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-			}
-	}
-	
+			g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+		}
+	}	
 }

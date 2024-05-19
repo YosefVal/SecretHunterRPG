@@ -17,6 +17,10 @@ public class TileManager {
 	public Tile[] tile;
 	public int mapTileNum[][];
 	
+	/**
+	 * Purpose: Sets up map and tiles
+	 * @param gp
+	 */
 	public TileManager (GamePanel gp) {
 		this.gp = gp;
 		tile = new Tile[10];
@@ -25,7 +29,10 @@ public class TileManager {
 		loadMap();
 	}
 	
-	public void getTileImage() { //Gets tile image and seys collision if needed
+	/**
+	 * Purpose: Gets tile name and sets collision
+	 */
+	public void getTileImage() {
 		setup(0, "Grass", false);
 		setup(1, "Dirt", false);
 		setup(2, "Water", true);
@@ -34,6 +41,12 @@ public class TileManager {
 		setup(5, "Tree", false);
 	}
 	
+	/**
+	 * Purpose: Gets tile image and scales it
+	 * @param index
+	 * @param imageName
+	 * @param collision
+	 */
 	public void setup(int index, String imageName, boolean collision) {
 		UtilityTool uTool = new UtilityTool();
 		
@@ -43,10 +56,13 @@ public class TileManager {
 			tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
 			tile[index].collision = collision;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Error: Missing image/Scaling gone wrong (TileManager line 59)");
 		}
 	}
 	
+	/**
+	 * Purpose: Uses Multidimensional arrays in text files in order to create a map
+	 */
 	public void loadMap() {
 		
 		try {
@@ -72,13 +88,16 @@ public class TileManager {
 					row++;
 				}
 			}
-			BR.close();
-			
+			BR.close();	
 		}catch(Exception e) {
-			e.printStackTrace();
+			System.out.println("Error: Missing text file (TileManager line 93)");
 		}
 	}
 	
+	/**
+	 * Purpose: Draws Tile images
+	 * @param g2
+	 */
 	public void draw (Graphics2D g2) {
 		int worldCol = 0;
 		int worldRow = 0;

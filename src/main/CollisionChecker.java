@@ -6,10 +6,18 @@ public class CollisionChecker {
 
 	GamePanel gp;
 	
+	/**
+	 * Purpose: gets gamepanel
+	 * @param gp
+	 */
 	public CollisionChecker(GamePanel gp) {
 		this.gp = gp;
 	}
 	
+	/**
+	 * Purpose: checks collision with tiles that have collision on
+	 * @param entity
+	 */
 	public void checkTile(Entity entity) {
 		
 		int entityLeftWorldX = entity.worldX + entity.solidArea.x;
@@ -60,6 +68,12 @@ public class CollisionChecker {
 		}
 	}
 	
+	/**
+	 * Purpose: Checks colission between player and object
+	 * @param entity
+	 * @param player
+	 * @return index
+	 */
 	public int checkObject (Entity entity, boolean player) {
 		int index = 999;
 		
@@ -121,16 +135,18 @@ public class CollisionChecker {
 				entity.solidArea.y = entity.solidAreaDefaultY;
 				gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
 				gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
-
 			}
-			
 		}
-		
 		return index;
 	}
-	
-public int checkEntity(Entity entity, Entity[] target) {
-		
+
+	/**
+	 * Purpose: Checks colission between Entities
+	 * @param entity
+	 * @param target
+	 * @return
+	 */
+	public int checkEntity(Entity entity, Entity[] target) {
 		int index = 999;
 		
 		for (int i = 0; i < target.length; i++) {
@@ -180,6 +196,10 @@ public int checkEntity(Entity entity, Entity[] target) {
 		return index;
 	}
 
+	/**
+	 * Purpose: checks collision between player and entity
+	 * @param entity
+	 */
 	public void checkPlayer(Entity entity) {
 		entity.solidArea.x = entity.worldX + entity.solidArea.x;
 		entity.solidArea.y = entity.worldY + entity.solidArea.y;
@@ -192,7 +212,7 @@ public int checkEntity(Entity entity, Entity[] target) {
 				if(entity.solidArea.intersects(gp.player.solidArea)) {
 					entity.collisionOn = true;
 				}
-			break;
+				break;
 			case "down":
 				entity.solidArea.y += entity.speed;
 				if(entity.solidArea.intersects(gp.player.solidArea)) {
@@ -217,5 +237,4 @@ public int checkEntity(Entity entity, Entity[] target) {
 			gp.player.solidArea.x = gp.player.solidAreaDefaultX;
 			gp.player.solidArea.y = gp.player.solidAreaDefaultY;
 	}
-	
 }

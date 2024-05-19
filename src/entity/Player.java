@@ -3,14 +3,11 @@ package entity;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
 
 public class Player extends Entity{
-	GamePanel gp;
+	
 	KeyHandler keyH;
 	public final int screenX;
 	public final int screenY;
@@ -18,13 +15,25 @@ public class Player extends Entity{
 	int hasKey = 0;
 	int standCounter = 0;
 	
+	/**
+	 * Purpose: Gets Entity constructor and necessary values
+	 * @param gp
+	 * @param keyH
+	 */
 	public Player(GamePanel gp, KeyHandler keyH) {
-		this.gp = gp;
+		super(gp);
 		this.keyH = keyH;
 		setDefaultValues();
-		getPlayerImage();
 		screenX = gp.screenWidth/2 - (gp.tileSize/2);
 		screenY = gp.screenHeight/2 - (gp.tileSize/2);
+		setSolidArea();
+		getPlayerImage();
+	}
+	
+	/**
+	 * Purpose: Sets collision hitbox for player
+	 */
+	public void setSolidArea() {
 		solidArea = new Rectangle();
 		solidArea.x = 8;
 		solidArea.y = 16;
@@ -34,6 +43,9 @@ public class Player extends Entity{
 		solidArea.height = 32;
 	}
 	
+	/**
+	 * Purpose: sets players default values
+	 */
 	public void setDefaultValues() {
 		worldX= gp.tileSize * 23;
 		worldY= gp.tileSize * 21;
@@ -45,32 +57,30 @@ public class Player extends Entity{
 		life = maxLife;
 	}
 	
+	/**
+	 * Purpose: Gets images for player entity
+	 */
 	public void getPlayerImage() {
 		//up
-		up1 = setup("/player/Player_Dwarf/U.Walk1");
-		up2 = setup("/player/Player_Dwarf/U.walk2");
-		up3 = setup("/player/Player_Dwarf/U.walk3");
-		up4 = setup("/player/Player_Dwarf/U.walk4");
+		up1 = setup("/playerSprite/boy_up_1");
+		up2 = setup("/playerSprite/boy_up_2");
 		
 		//down
-		down1 = setup("/player/Player_Dwarf/D.walk1");
-		down2 = setup("/player/Player_Dwarf/D.walk2");
-		down3 = setup("/player/Player_Dwarf/D.walk3");
-		down4 = setup("/player/Player_Dwarf/D.walk4");
+		down1 = setup("/playerSprite/boy_down_1");
+		down2 = setup("/playerSprite/boy_down_2");
 			
 		//right
-		right1 = setup("/player/Player_Dwarf/Walk1");
-		right2 = setup("/player/Player_Dwarf/Walk2");
-		right3 = setup("/player/Player_Dwarf/Walk3");
-		right4 = setup("/player/Player_Dwarf/Walk4");
+		right1 = setup("/playerSprite/boy_right_1");
+		right2 = setup("/playerSprite/boy_right_2");
 			
 		//left
-		left1 = setup("/player/Player_Dwarf/L.Walk1");
-		left2 = setup("/player/Player_Dwarf/L.walk2");
-		left3 = setup("/player/Player_Dwarf/L.walk3");
-		left4 = setup("/player/Player_Dwarf/L.walk4");
+		left1 = setup("/playerSprite/boy_left_1");
+		left2 = setup("/playerSprite/boy_left_2");
 	}
 	
+	/**
+	 * Purpose: Updates player direction and collision, and image 
+	 */
 	public void update() {
 		if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true 
 				|| keyH.rightPressed == true) {
@@ -93,41 +103,47 @@ public class Player extends Entity{
 			int objIndex = gp.cChecker.checkObject(this, true);
 			pickUpObject(objIndex);
 			
-			int ncpIndex = gp.cChecker.checkEntity(this, gp.npc);
-			interactNPC(ncpIndex);
+			gp.cChecker.checkEntity(this, gp.npc);
 			
-			if (collisionOn == false) {
-				switch(direction) {
-				case "up": worldY -= speed; break;
-				case "down": worldY += speed; break;
-				case "left": worldX -= speed; break;
-				case "right": worldX += speed; break;
-				}
-			}
-			
-			spriteCounter++;
-			if (spriteCounter > 10) {
-				if (spriteNum == 1) {
-					spriteNum = 2;
-				}
-				else if (spriteNum == 2) {
-					spriteNum = 3;
-				}
-				else if (spriteNum == 3) {
-					spriteNum = 4;
-				}
-				else if (spriteNum == 4) {
-					spriteNum = 1;
-				}
-				spriteCounter = 0;
+			updateCollision();
+			updateSpriteCounter();
+		}
+	}
+	
+	/**
+	 * Purpose: Updates collision
+	 */
+	public void updateCollision() {
+		if (collisionOn == false) {
+			switch(direction) {
+			case "up": worldY -= speed; break;
+			case "down": worldY += speed; break;
+			case "left": worldX -= speed; break;
+			case "right": worldX += speed; break;
 			}
 		}
 	}
 	
-	private void interactNPC(int ncpIndex) {
-		
+	/**
+	 * Purpose: updates player image number
+	 */
+	public void updateSpriteCounter() {
+		spriteCounter++;
+		if (spriteCounter > 10) {
+			if (spriteNum == 1) {
+				spriteNum = 2;
+			}
+			else if (spriteNum == 2) {
+				spriteNum = 1;
+			}
+			spriteCounter = 0;
+		}
 	}
 	
+	/**
+	 * Purpose: Picks up object if player interacts with it
+	 * @param i
+	 */
 	public void pickUpObject(int i) {
 		if (i != 999) {
 			String objectName = gp.obj[i].name;
@@ -147,44 +163,45 @@ public class Player extends Entity{
 		}
 	}
 	
+	/**
+	 * Purpose: Draws player image depending of image number
+	 */
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
 		switch(direction) {
 		case "up":
 			if (spriteNum == 1) {image = up1;}
 			if (spriteNum == 2) {image = up2;}
-			if (spriteNum == 3) {image = up3;}
-			if (spriteNum == 4) {image = up4;}
 			break;
 			
 		case "down":
 			if (spriteNum == 1) {image = down1;}
 			if (spriteNum == 2) {image = down2;}
-			if (spriteNum == 3) {image = down3;}
-			if (spriteNum == 4) {image = down4;}
 				break;
 				
 		case "right":
 			if (spriteNum == 1) {image = right1;}
 			if (spriteNum == 2) {image = right2;}
-			if (spriteNum == 3) {image = right3;}
-			if (spriteNum == 4) {image = right4;}
 				break;
 				
 		case "left":	
 			if (spriteNum == 1) {image = left1;}
 			if (spriteNum == 2) {image = left2;}
-			if (spriteNum == 3) {image = left3;}
-			if (spriteNum == 4) {image = left4;}
 			break;
 		}
 		g2.drawImage(image, screenX, screenY, null);
 	}
 	
+	/**
+	 * Purpose: Lowers player HP by 1
+	 */
 	public void lowerHP() {
 		life -= 1;
 	}
 	
+	/**
+	 * Increases Player HP by 1 unless player is already at max hp
+	 */
 	public void heal() {
 		life += 1;
 		if (life > maxLife) {

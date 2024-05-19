@@ -9,19 +9,19 @@ import main.KeyHandler;
 
 class PlayerTest {
 	GamePanel gp = new GamePanel();
-	KeyHandler keyH = new KeyHandler();
+	KeyHandler keyH = new KeyHandler(gp);
 	
 	@Test
-	void testHP() {
+	void testlife() {
 		Player player = new Player(gp, keyH);
 		player.lowerHP();
-		assertNotEquals(10, player.HP);
+		assertNotEquals(10, player.life);
 		player.heal();
-		assertEquals(10, player.HP);
+		assertEquals(10, player.life);
 		player.heal();
-		assertEquals(10, player.HP);
+		assertEquals(10, player.life);
 	}
-	
+
 	@Test
 	void testDirection() {
 		Player player = new Player(gp, keyH);
@@ -45,5 +45,4 @@ class PlayerTest {
 		player.update();
 		assertEquals("left", player.direction);
 	}
-
 }
